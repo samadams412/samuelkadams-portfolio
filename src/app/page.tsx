@@ -1,9 +1,13 @@
+import { Container } from "@/components/layout/container";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-black">
-      <h1 className="text-2xl font-medium text-black dark:text-zinc-50">
-        Sam Adams — Portfolio, coming soon
-      </h1>
-    </main>
+    <Container>
+      <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+        <h1 className="text-2xl font-medium text-foreground">
+          Sam Adams — Portfolio, coming soon
+        </h1>
+      </div>
+    </Container>
   );
 }

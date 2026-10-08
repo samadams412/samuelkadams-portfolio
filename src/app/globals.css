@@ -6,8 +6,33 @@
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --border: #e4e4e7;
-  --accent: #2563eb;
-  --accent-foreground: #ffffff;
+
+  /* Accent — rack-amber (server/rack status-LED + solder-iron warmth).
+     To try a different direction, swap ONLY the --accent / --accent-foreground
+     pair below (here and in the dark-mode block) for one of the commented
+     alternates. Every other accent token (--accent-hover, --accent-muted,
+     --accent-ring, and the Tailwind utilities generated from them) is derived
+     from --accent with color-mix() and updates automatically — nothing else
+     in the codebase references a raw accent hex. */
+  --accent: #b45309; /* amber-700 */
+  --accent-foreground: #fff7ed;
+
+  /* Option A — signal blue (deeper/cyan-shifted than Phase 1's default blue;
+     reads as a diagnostic/terminal indicator rather than a SaaS CTA button)
+  --accent: #1d5fd6;
+  --accent-foreground: #eff6ff;
+  */
+
+  /* Option C — status teal (network/uptime-monitor teal)
+  --accent: #0f766e;
+  --accent-foreground: #ecfdf5;
+  */
+
+  /* Derived accent states — defined once; var(--foreground)/var(--background)
+     already flip between light and dark mode below, so these follow for free. */
+  --accent-hover: color-mix(in oklab, var(--accent) 82%, var(--foreground));
+  --accent-muted: color-mix(in oklab, var(--accent) 14%, var(--background));
+  --accent-ring: color-mix(in oklab, var(--accent) 45%, transparent);
 }
 
 /* Semantic tokens exposed as Tailwind utilities (bg-background, text-muted-foreground, border-border, etc.) */
@@ -19,6 +44,9 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-ring: var(--accent-ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -30,8 +58,19 @@
     --muted: #18181b;
     --muted-foreground: #a1a1aa;
     --border: #27272a;
-    --accent: #60a5fa;
-    --accent-foreground: #0a0a0a;
+
+    --accent: #fbbf24; /* amber-400 */
+    --accent-foreground: #1c1203;
+
+    /* Option A — signal blue (dark-mode pair)
+    --accent: #7cb3ff;
+    --accent-foreground: #0a1322;
+    */
+
+    /* Option C — status teal (dark-mode pair)
+    --accent: #2dd4bf;
+    --accent-foreground: #042f2b;
+    */
   }
 }
 

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/container";
-import { ProjectGrid } from "@/components/projects/project-grid";
+import { ProjectList } from "@/components/projects/project-list";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Full-stack web apps, infrastructure builds, and client work — Sam Adams's project grid.",
+    "Full-stack web apps, infrastructure builds, and client work — Sam Adams's project list.",
 };
 
 export default function ProjectsPage() {
@@ -22,7 +22,7 @@ export default function ProjectsPage() {
           infrastructure builds.
         </p>
 
-        <ProjectGrid projects={projects} />
+        <ProjectList projects={projects} />
       </div>
     </Container>
   );

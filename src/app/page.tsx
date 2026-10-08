@@ -1,13 +1,18 @@
 import { Container } from "@/components/layout/container";
+import { ContactStrip } from "@/components/home/contact-strip";
+import { FeaturedProjects } from "@/components/home/featured-projects";
+import { Hero } from "@/components/home/hero";
+import { getAllProjects } from "@/lib/projects";
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getAllProjects();
+  const featuredProjects = projects.filter((project) => project.featured);
+
   return (
     <Container>
-      <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-        <h1 className="text-2xl font-medium text-foreground">
-          Sam Adams — Portfolio, coming soon
-        </h1>
-      </div>
+      <Hero />
+      <FeaturedProjects projects={featuredProjects} />
+      <ContactStrip />
     </Container>
   );
 }

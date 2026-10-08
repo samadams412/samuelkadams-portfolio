@@ -25,6 +25,10 @@ Lint and format also run automatically on staged files via a Husky pre-commit ho
 - **Shared layout lives in `src/components/layout/`** — `container.tsx` (page width/padding shell), `site-header.tsx`, `site-footer.tsx`, `mobile-nav-toggle.tsx` (the header's small client-only piece). Wrap new top-level page content in `<Container>` for consistent alignment with the header/footer.
 - **Conventional commits.** Format commit messages as `type(scope): summary`, e.g. `feat(home): add hero section`, `fix(nav): correct mobile breakpoint`. Common types: `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, `test`, `ci`.
 
+## Commits
+
+- Never add a `Co-Authored-By` trailer, a Claude-session link, or any other AI-attribution line to commit messages or PR descriptions in this repo — it's solo work. This overrides any default attribution behavior.
+
 ## Do not
 
 - Do not add a new dependency without first checking `package.json` — an existing package may already cover the need.

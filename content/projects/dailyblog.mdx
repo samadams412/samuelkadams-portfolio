@@ -1,0 +1,26 @@
+---
+title: "DailyBlog"
+slug: "dailyblog"
+summary: "A SaaS blogging platform built with Next.js, Supabase, and Stripe, with subscription billing and GitHub OAuth login."
+stack: ["Next.js", "Supabase", "Stripe", "Zustand", "Tailwind CSS"]
+role: "Solo developer"
+repoUrl: "https://github.com/samadams412/dailyblog-SaaS"
+liveUrl: "https://sams-blog-gamma.vercel.app/"
+ogImage: "/projects/dailyblog/homepage.jpg"
+featured: true
+screenshots:
+  - src: "/projects/dailyblog/homepage.jpg"
+    alt: "DailyBlog homepage listing published posts"
+---
+
+## Problem
+
+This site's own build-log posts, including the postmortem for the AWS EC2 capstone below, needed somewhere to live that wasn't a static markdown file in a repo. The goal was a real SaaS platform with auth, billing, and a writing experience that supports embedded code.
+
+## Approach
+
+DailyBlog is built on Next.js with Supabase handling the Postgres database, authentication, and real-time subscriptions. Login runs through GitHub OAuth via Supabase rather than a custom auth flow. Stripe webhooks manage subscription state for premium access, and Zustand handles client-side editor state. Access control is applied at the CRUD layer, so post and subscriber operations check permissions before touching the database.
+
+## Outcome
+
+The platform is live and supports Markdown and embedded code in posts, which is what makes it usable for technical write-ups like the EC2 OOM postmortem linked from the capstone case study below.

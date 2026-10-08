@@ -1,0 +1,28 @@
+---
+title: "Forevercraft"
+slug: "forevercraft"
+summary: "A fan-made hub for World of Warcraft: Forever, combining a unified race/class/talent planner with reference content and a blog."
+stack: ["Next.js", "TypeScript", "Tailwind CSS", "MDX"]
+role: "Solo developer, ongoing through the game's beta"
+repoUrl: "https://github.com/samadams412/wow-forever-planner"
+liveUrl: "https://forevercraft.app"
+ogImage: "/projects/forevercraft/hero.png"
+featured: false
+screenshots:
+  - src: "/projects/forevercraft/hero.png"
+    alt: "Forevercraft hero banner with the site's name and tagline"
+---
+
+## Problem
+
+World of Warcraft: Forever (Blizzard's Classic-plus release) already has a few community talent calculators, including one from Wowhead and a couple of open-source projects. What none of them have is a unified flow: picking a race, checking its racials, and building a talent tree are split across separate screens, and none of them are a site people would bookmark and return to outside of planning a build.
+
+## Approach
+
+Forevercraft leads with class instead of race. Class tabs sit across the top with the talent tree front and center, no empty state waiting on a race pick, and a compact race column beside the tree filters to whatever classes that race can actually play. Racials show on demand through a hover or click popover next to the race list instead of an always-expanded panel, so checking them doesn't grow the page or add scrolling.
+
+The site is built on Next.js with the App Router, TypeScript, and Tailwind, with game data as static JSON and guide/blog content in MDX. There's no database in this phase. Talent and race data gets cross-referenced against multiple sources, since beta data changes constantly, and each entry carries a confidence level: confirmed, datamined, or estimated.
+
+## Outcome
+
+The site is live at forevercraft.app, with the planner validated end to end for one class before the other eight were filled in. Guides and blog content are meant to give people a reason to come back between planning sessions, through beta and past the game's November 2026 launch.

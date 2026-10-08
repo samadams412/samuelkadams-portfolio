@@ -1,0 +1,50 @@
+---
+title: "AWS EC2 Micro-CMS + Auth"
+slug: "aws-ec2-microcms-auth"
+summary: "An 18-assignment web technologies capstone, hand-configured on a real AWS EC2 instance from a static HTML page through a database-backed CMS with full authentication."
+stack: ["AWS EC2", "IAM", "nginx", "MySQL", "PHP", "Bootstrap"]
+role: "Solo coursework, built incrementally over a semester"
+repoUrl: "https://github.com/samadams412/aws-ec2-microcms-auth"
+ogImage: "/projects/aws-ec2-microcms-auth/cms-home.png"
+featured: false
+screenshots:
+  - src: "/projects/aws-ec2-microcms-auth/cms-home.png"
+    alt: "CMS homepage rendering navigation and page content pulled from MySQL"
+  - src: "/projects/aws-ec2-microcms-auth/register.png"
+    alt: "Registration form with duplicate-username checking"
+  - src: "/projects/aws-ec2-microcms-auth/login.png"
+    alt: "Login form for the CMS authentication system"
+  - src: "/projects/aws-ec2-microcms-auth/results-authenticated.png"
+    alt: "Protected results page after a successful login, with the password column redacted"
+---
+
+## Problem
+
+This was an 18-assignment web technologies course where each assignment built on the last, deployed to the same AWS EC2 instance the whole way through rather than reconstructed afterward. The end state is a database-backed CMS with a full authentication system, but the point of the case study is the build-up, not just the final screenshot.
+
+## Infrastructure
+
+The instance runs under a dedicated IAM user rather than root, applying least privilege from initial setup. nginx serves the site with HTTPS through a self-signed TLS certificate, and MySQL with phpMyAdmin handles the database layer.
+
+## Build progression
+
+| Stage | What it added |
+|---|---|
+| [hw2](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw2) | Single static HTML page |
+| [hw3](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw3)–[hw5](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw5) | Multi-page static site (home, contact, hobbies, school, work), styling passes |
+| [hw6](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw6)–[hw7](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw7) | Client-side JavaScript introduced |
+| [hw8](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw8) | Bootstrap refactor and a shopping-cart UI |
+| [hw9](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw9) | First PHP page, rendering a dynamic date |
+| [hw10](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw10)–[hw11](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw11) | GET/POST form handling; the contact page converted to PHP |
+| [hw12](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw12) | Server-side validation helpers extracted into a shared file |
+| [hw13](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw13) | Remaining pages converted to PHP, navigation rendered dynamically |
+| [hw15](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw15) | First real database write, the contact form inserting into MySQL |
+| [hw16](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw16) | Database connection helper extracted; stored contacts read back and displayed |
+| [hw17](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw17) | Full CMS: navigation and page content pulled dynamically from `menu` and `pages` tables, with explicit field selection in every query instead of wildcard selects |
+| [hw18](https://github.com/samadams412/aws-ec2-microcms-auth/tree/main/hw18) | Full authentication system: registration with duplicate-username checking, salted SHA-256 password hashing, server-side session IDs, and a protected results page that validates the session against the database |
+
+(hw1 and hw14 were non-code assignments and were never deployed to the instance.)
+
+## After launch
+
+The instance sat untouched for about a month after the course ended. Pulling screenshots for this case study surfaced a dead MySQL service, killed by the kernel's OOM killer during a memory spike and stuck in a failed state after exhausting systemd's restart limit. The fix was a swapfile and a capped InnoDB buffer pool size. The full write-up, including the `dmesg` and `journalctl` evidence, is on DailyBlog: [My EC2 Instance Had Been Dead for a Month and I Didn't Know](https://sams-blog-gamma.vercel.app/blog/5de37cf4-5fec-4c87-a84d-087c5240c955).

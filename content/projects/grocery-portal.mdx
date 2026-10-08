@@ -1,0 +1,34 @@
+---
+title: "Grocery Portal"
+slug: "grocery-portal"
+summary: "A full-stack e-commerce portal built with Next.js, Prisma, and Stripe, developed with a team for CS3773 Software Engineering."
+stack: ["Next.js", "React", "Prisma", "PostgreSQL", "Stripe", "NextAuth", "Tailwind CSS"]
+role: "Collaborative course project (CS3773 Software Engineering)"
+repoUrl: "https://github.com/samadams412/customer-portal"
+liveUrl: "https://customer-portal-alpha-nine.vercel.app/"
+ogImage: "/projects/grocery-portal/homepage.png"
+featured: true
+screenshots:
+  - src: "/projects/grocery-portal/homepage.png"
+    alt: "Grocery Portal homepage with product browsing and promotional banner"
+  - src: "/projects/grocery-portal/auth-sequence.png"
+    alt: "Sequence diagram of the NextAuth authentication flow"
+  - src: "/projects/grocery-portal/prisma-models.png"
+    alt: "Prisma schema diagram showing the database models"
+  - src: "/projects/grocery-portal/stripe-sequence.png"
+    alt: "Sequence diagram of the Stripe checkout flow"
+---
+
+## Problem
+
+A CS3773 Software Engineering assignment asked for a full-stack web application built to professional conventions: a real database, real payments, and a team workflow with code review and CI, not a solo weekend project.
+
+## Approach
+
+The team built an online grocery store on Next.js and PostgreSQL, with Prisma handling the schema and queries. Checkout runs through the Stripe API, and authentication moved from an earlier JWT setup to NextAuth partway through the project, after the JWT approach turned out to be more token-leakage risk than the team wanted to carry. Shadcn UI supplied the component primitives, and the group shipped through Vercel's preview deployments with GitHub branch protection so changes went through review before reaching main.
+
+Cart logic handles merging items from multiple sessions, applying discount codes, and keeping the cart contents persistent across visits.
+
+## Outcome
+
+The portal supports browsing, filtering, authenticated checkout, and order history backed by PostgreSQL. The product catalog currently uses placeholder images and copy rather than a built-out product set, which is the main gap before this would hold up as a real storefront demo.

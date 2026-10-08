@@ -1,0 +1,27 @@
+---
+title: "Eventify"
+slug: "eventify"
+summary: "A normalized MySQL schema for an event-ticketing platform, with Python tooling to generate realistic test data. No front end."
+stack: ["MySQL", "SQL", "Python", "Faker"]
+role: "Solo course project (Database Management)"
+repoUrl: "https://github.com/samadams412/G4C"
+ogImage: "/projects/eventify/er-diagram.png"
+featured: false
+screenshots:
+  - src: "/projects/eventify/er-diagram.png"
+    alt: "Entity-relationship diagram of the Eventify database schema"
+---
+
+## Problem
+
+A database management course project, scoped around schema design rather than application development. There's no UI here, and this case study doesn't pretend otherwise.
+
+## Approach
+
+The schema models an event-ticketing platform: users, venues, events, orders, and tickets, with foreign keys, triggers, and stored procedures enforcing business rules at the database layer rather than in application code. To test it against something more realistic than a handful of manually entered rows, a Python tool using Faker generates synthetic datasets sized for query and workflow validation.
+
+SQL views and stored procedures cover reporting needs like event sales and attendance, queryable directly against the database.
+
+## Outcome
+
+The project is the schema, the data-generation tooling, and the reporting queries, not a deployed application. The ER diagram above is the fastest way to see the design without reading the SQL directly.

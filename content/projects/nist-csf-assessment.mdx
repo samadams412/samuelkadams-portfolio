@@ -1,24 +1,32 @@
 ---
-title: "NIST CSF Cybersecurity Assessment"
+title: "NARO Cybersecurity Assessment"
 slug: "nist-csf-assessment"
-summary: "A team cybersecurity risk assessment for a simulated nonprofit, evaluated against NIST CSF 2.0 and NISTIR 7621."
-stack: ["NIST CSF 2.0", "NISTIR 7621", "Risk assessment"]
-role: "Team member, team of six"
+summary: "A team cybersecurity assessment of a fictitious R&D nonprofit for CS3113 Principles of Cybersecurity, structured on NIST CSF 2.0 and Sandia's IDART methodology."
+stack: ["NIST CSF 2.0", "NISTIR 7621", "IDART", "Risk assessment"]
+role: "Figures and Section 6 (Assessment Results and Recommendations) author, team of six"
 ogImage: "/projects/nist-csf-assessment/network-topology.png"
 featured: false
 screenshots:
   - src: "/projects/nist-csf-assessment/network-topology.png"
-    alt: "Network topology diagram produced for the assessed organization"
+    alt: "Network topology diagram of NARO's offices and labs, including the lack-of-MFA and end-of-life OS findings"
+  - src: "/projects/nist-csf-assessment/data-flow.png"
+    alt: "Data flow diagram showing NARO's switch path from CyberTower Two's rooftop equipment down to servers, the internet router, and the VLAN-segmented accounting workstations"
 ---
 
 ## Problem
 
-As part of a six-person team, the assignment was to assess the cybersecurity posture of a simulated small R&D nonprofit against a recognized framework, rather than an informal checklist.
+CS3113 Principles of Cybersecurity assigned a six-person team, operating under the name Death Star Consulting, to assess the cybersecurity posture of NARO Inc., a fictitious nonprofit doing R&D on mini wind turbines. The scope covered physical access controls across NARO's two office buildings, network and remote-access security across its 17 servers, and the maturity of its cybersecurity policies. It was a documentation review: no active penetration testing or direct system interaction, a limitation the report states explicitly rather than leaving implied.
 
 ## Approach
 
-The team applied NIST Cybersecurity Framework 2.0 and NISTIR 7621 guidance, evaluating physical access controls, network segmentation, and remote-access policy. Findings were mapped to CSF functions and paired with mitigations sized for a resource-constrained organization, and the team produced network topology and risk-mapping diagrams to communicate results to non-technical stakeholders.
+NIST Cybersecurity Framework 2.0 structured the assessment across its six functions: Govern, Identify, Protect, Detect, Respond, and Recover. The team adapted that framework with Sandia National Laboratories' IDART methodology, a process-oriented approach that ties each finding to evidence from NARO's own documented processes rather than general best-practice assumptions. Findings were sorted into Weaknesses, Strengths, and Observations, each carrying a severity rating of High, Moderate, or Low and mapped to a specific CSF 2.0 function and subcategory.
+
+Two findings from the Weaknesses section, both rated High, show how that mapping worked. NARO relied on a single factor, username and password, for all remote VPN access, which the report flagged as a single point of failure and mapped to CSF 2.0 Protect, PR.AA-03. Separately, NARO's Supermicro R&D servers ran Ubuntu 18.04.6 LTS, which stopped receiving security patches in May 2023, mapped to CSF 2.0 Protect, PR.PS-02. These are two findings out of a full set covering physical access, network segmentation, and policy gaps, not the complete report.
+
+## My role
+
+I built every figure in the report, including the network topology diagrams and the data flow diagram above. I also wrote Section 6, Assessment Results and Recommendations, the full Weaknesses/Strengths/Observations writeup, and mapped each weakness and observation to its NIST CSF 2.0 function and subcategory.
 
 ## Outcome
 
-The assessment surfaced real gaps, including the absence of multi-factor authentication on VPN access and reliance on an end-of-life operating system in production, alongside genuine strengths like automated nightly backups and full-disk encryption. The full report runs about 30 pages; this write-up summarizes it rather than reproducing it.
+The report was delivered as an independent evaluation NARO's (fictitious) leadership could use to prioritize cost-effective mitigations without assuming dedicated security staff or a large security budget. It runs about 30 pages; this write-up summarizes it rather than reproducing it.

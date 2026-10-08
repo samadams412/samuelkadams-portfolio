@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/container";
 import { ProjectList } from "@/components/projects/project-list";
-import { projects } from "@/data/projects";
+import { getAllProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Full-stack web apps, infrastructure builds, and client work — Sam Adams's project list.",
+    "Full-stack web apps, infrastructure builds, and client work, all built by Sam Adams.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
+
   return (
     <Container>
       <div className="py-16 sm:py-20">

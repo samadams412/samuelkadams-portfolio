@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Container } from "@/components/layout/container";
+import { LightboxImage } from "@/components/projects/lightbox-image";
 import { getAllProjectSlugs, getProject } from "@/lib/projects";
 
 export const dynamicParams = false;
@@ -90,18 +90,11 @@ export default async function ProjectPage({
         {meta.screenshots && meta.screenshots.length > 0 ? (
           <div className="mt-10 flex flex-col gap-6">
             {meta.screenshots.map((screenshot) => (
-              <div
+              <LightboxImage
                 key={screenshot.src}
-                className="relative aspect-video w-full overflow-hidden bg-muted"
-              >
-                <Image
-                  src={screenshot.src}
-                  alt={screenshot.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 768px, 100vw"
-                />
-              </div>
+                src={screenshot.src}
+                alt={screenshot.alt}
+              />
             ))}
           </div>
         ) : null}

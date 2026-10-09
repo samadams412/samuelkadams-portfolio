@@ -40,6 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-Portfolio_Rebuild_Plan.docx
-Samuel_Adams_Master_Resume_Bank.docx
-/NARO_cyber_audit/
+/docs/

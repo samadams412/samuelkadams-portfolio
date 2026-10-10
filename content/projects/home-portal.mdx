@@ -1,34 +1,36 @@
 ---
-title: "Grocery Portal"
-slug: "grocery-portal"
-summary: "A full-stack e-commerce portal built with Next.js, Prisma, and Stripe, developed with a team for CS3773 Software Engineering."
+title: "Home Portal"
+slug: "home-portal"
+summary: "A home & lifestyle e-commerce storefront built with Next.js, Prisma, and Stripe, rebranded from an earlier grocery concept with a full design-system overhaul and security hardening."
 stack: ["Next.js", "React", "Prisma", "PostgreSQL", "Stripe", "NextAuth", "Tailwind CSS"]
-role: "Collaborative course project (CS3773 Software Engineering)"
+role: "Collaborative course project (CS3773 Software Engineering), rebrand and redesign solo afterward"
 repoUrl: "https://github.com/samadams412/customer-portal"
 liveUrl: "https://customer-portal-alpha-nine.vercel.app/"
-ogImage: "/projects/grocery-portal/homepage.png"
+ogImage: "/projects/home-portal/homepage.jpg"
 featured: true
 screenshots:
-  - src: "/projects/grocery-portal/homepage.png"
-    alt: "Grocery Portal homepage with product browsing and promotional banner"
-  - src: "/projects/grocery-portal/auth-sequence.png"
+  - src: "/projects/home-portal/homepage.jpg"
+    alt: "Home Portal homepage with hero copy and furniture/decor catalog"
+  - src: "/projects/home-portal/auth-sequence.png"
     alt: "Sequence diagram of the NextAuth authentication flow"
-  - src: "/projects/grocery-portal/prisma-models.png"
+  - src: "/projects/home-portal/prisma-models.png"
     alt: "Prisma schema diagram showing the database models"
-  - src: "/projects/grocery-portal/stripe-sequence.png"
+  - src: "/projects/home-portal/stripe-sequence.png"
     alt: "Sequence diagram of the Stripe checkout flow"
 ---
 
 ## Problem
 
-A CS3773 Software Engineering assignment asked for a full-stack web application built to professional conventions: a real database, real payments, and a team workflow with code review and CI, not a solo weekend project.
+A CS3773 Software Engineering assignment asked for a full-stack web application built to professional conventions: a real database, real payments, and a team workflow with code review and CI, not a solo weekend project. The original build (then called Grocery Portal) shipped with placeholder-grade catalog data and default shadcn styling, which worked but didn't hold up as a real storefront demo.
 
 ## Approach
 
-The team built an online grocery store on Next.js and PostgreSQL, with Prisma handling the schema and queries. Checkout runs through the Stripe API, and authentication moved from an earlier JWT setup to NextAuth partway through the project, after the JWT approach turned out to be more token-leakage risk than the team wanted to carry. Shadcn UI supplied the component primitives, and the group shipped through Vercel's preview deployments with GitHub branch protection so changes went through review before reaching main.
+The underlying architecture carried over unchanged: Next.js App Router, Prisma/PostgreSQL, NextAuth, and Stripe checkout, with cart logic that merges sessions, applies discount codes, and persists across visits. On top of that foundation, I rebranded the storefront from a grocery concept to Home Portal, a home & lifestyle catalog, swapping the product data over to DummyJSON's furniture, decor, and kitchen-accessory categories and rewriting the site copy (nav, hero, footer, empty states) to match.
 
-Cart logic handles merging items from multiple sessions, applying discount codes, and keeping the cart contents persistent across visits.
+I also built out a real design system: warm stone neutrals with an amber accent, Fraunces serif headings paired with Inter body text, and semantic tokens for success/destructive/CTA states, applied consistently across the homepage, catalog, checkout, dashboard, orders, and auth screens, with full dark mode rather than an inverted-color light theme. I added a new About Us page with original copy, linked from the navbar and footer, and fixed a few real bugs along the way: catalog pagination that rendered every page number in a row now truncates with ellipses, the footer moved from homepage-only to the root layout so it renders site-wide, and a checkout test with a silent gap (missing request headers in its mock) got fixed so it would actually catch a regression.
+
+On the infrastructure side, I bumped Next.js off a version with several patched CVEs, including a critical RCE, to the latest 15.x patch; added regression test coverage for the server-side pricing calculation that prevents client-side cart tampering (fixed prior to this pass); and resolved an `@types/node`/vitest peer conflict that was breaking CI and Vercel installs.
 
 ## Outcome
 
-The portal supports browsing, filtering, authenticated checkout, and order history backed by PostgreSQL. The product catalog currently uses placeholder images and copy rather than a built-out product set, which is the main gap before this would hold up as a real storefront demo.
+Home Portal supports browsing, filtering, authenticated checkout, and order history backed by PostgreSQL, now running on a real product catalog with consistent styling and dark mode instead of placeholder data and default component theming. The rebrand and redesign were a content and visual pivot on top of the same engineering foundation: the auth, ordering, and payment logic carried over unchanged.

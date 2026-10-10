@@ -94,12 +94,13 @@ export type RelevantProject = {
 
 export const relevantProjects: RelevantProject[] = [
   {
-    title: "GroceryPortal",
+    title: "Home Portal",
     role: "Full-Stack E-Commerce Application",
     bullets: [
       "Built a full-stack e-commerce application using Next.js, Prisma ORM, and PostgreSQL, with Stripe API payment integration for secure checkout",
+      "Rebranded and redesigned the storefront with a full design-system overhaul (dark mode, new catalog, new pages) and hardened it with dependency/security fixes, including patching a critical Next.js RCE and adding regression tests for a price-tampering vulnerability",
     ],
-    slug: "grocery-portal",
+    slug: "home-portal",
   },
   {
     title: "AWS EC2 MicroCMS + Auth System",
@@ -114,7 +115,7 @@ export const relevantProjects: RelevantProject[] = [
     title: "Fox Lab",
     role: "Home Infrastructure Lab",
     bullets: [
-      "Architected and administered a hyperconverged home lab on bare-metal Proxmox VE — 3 LXC containers and 1 KVM VM spanning DNS filtering (Pi-hole), Dockerized game server hosting, GPU-passthrough media streaming, and an isolated Linux development environment",
+      "Architected and administered a hyperconverged home lab on bare-metal Proxmox VE: 3 LXC containers and 1 KVM VM spanning DNS filtering (Pi-hole), Dockerized game server hosting, GPU-passthrough media streaming, and an isolated Linux development environment",
       "Applied SRE practices: live CPU/RAM reallocation across workloads, qemu-guest-agent ACPI integration for clean shutdowns, and a zero-trust outbound tunnel for external access without exposing inbound router ports",
     ],
   },

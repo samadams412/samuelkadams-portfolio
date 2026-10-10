@@ -7,7 +7,7 @@ import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Get in touch with ${contact.name} — email, LinkedIn, or the form below.`,
+  description: `Get in touch with ${contact.name}: email, LinkedIn, or the form below.`,
 };
 
 const directLinks = [

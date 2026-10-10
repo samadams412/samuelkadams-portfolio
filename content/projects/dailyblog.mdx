@@ -1,7 +1,7 @@
 ---
 title: "DailyBlog"
 slug: "dailyblog"
-summary: "A SaaS blogging platform built with Next.js, Supabase, and Stripe, with subscription billing and GitHub OAuth login."
+summary: "A SaaS blogging platform built with Next.js, Supabase, and Stripe. Revisited after sitting live and unmaintained for about two years to diagnose a silent write bug, two auth gaps, and a payment edge case, then do a full UI pass."
 stack: ["Next.js", "Supabase", "Stripe", "Zustand", "Tailwind CSS"]
 role: "Solo developer"
 repoUrl: "https://github.com/samadams412/dailyblog-SaaS"
@@ -10,17 +10,37 @@ ogImage: "/projects/dailyblog/homepage.jpg"
 featured: true
 screenshots:
   - src: "/projects/dailyblog/homepage.jpg"
-    alt: "DailyBlog homepage listing published posts"
+    alt: "DailyBlog homepage listing published posts, now with a light/dark mode toggle"
+  - src: "/projects/dailyblog/dashboard.jpg"
+    alt: "Dashboard post list filtered by category, publish status, and premium"
+  - src: "/projects/dailyblog/post.jpg"
+    alt: "Individual post page with share, copy link, and X share buttons"
 ---
 
 ## Problem
 
-This site's own build-log posts, including the postmortem for the AWS EC2 capstone below, needed somewhere to live that wasn't a static markdown file in a repo. The goal was a real SaaS platform with auth, billing, and a writing experience that supports embedded code.
+DailyBlog launched with auth, billing, and a Markdown writing flow, then stayed live and mostly untouched for about two years. The thing that brought me back in was small: editing a published post didn't show the update. That single reported bug turned into a full audit, and it surfaced real security holes and a payment bug sitting in production the whole time, not just stale styling.
 
-## Approach
+## Diagnosis
 
-DailyBlog is built on Next.js with Supabase handling the Postgres database, authentication, and real-time subscriptions. Login runs through GitHub OAuth via Supabase rather than a custom auth flow. Stripe webhooks manage subscription state for premium access, and Zustand handles client-side editor state. Access control is applied at the CRUD layer, so post and subscriber operations check permissions before touching the database.
+The edit bug set the pattern for the rest of the pass: prove the root cause before changing anything. I traced the edit path and tested the Supabase write directly against what the app displayed, to separate a caching problem from a write problem. It was a write problem. Supabase's `update()` calls weren't checking the affected row count, so a write that matched zero rows, because of a gap in the row-level security policy, came back as a success with no error anywhere in the stack.
+
+The same approach caught the next bug, in the Stripe webhook. It was subscribed to `customer.updated` instead of the subscription-specific events, and it silently no-op'd whenever a user's signup email didn't match their Stripe checkout email. A paying customer could lose premium access with no error surfaced anywhere, the same shape of failure as the edit bug. The fix was the correct event subscription plus the same affected-row check from the original fix.
+
+## Security and reliability fixes
+
+A broader security pass turned up two issues reachable by anyone with the right URL. A Server Action had no auth check of its own and could forge a Stripe billing-portal link for any customer ID. Separately, five dashboard write actions (create, update, publish, delete) had no auth check either; they relied only on route middleware, which doesn't protect a Server Action called directly. Both got server-side auth checks that don't depend on RLS.
+
+The public API route serving post data had the same shape of gap: it didn't filter by published status, so draft posts were reachable by ID if you knew it. Fixed to filter on published status.
+
+A separate client-side bug caused a visible "logged out" flash on every page refresh, before the real session had loaded. That traced to one root cause, a missing `isLoading` check, fixed once across every component that consumed auth state instead of patched component by component.
+
+## UI/UX and features
+
+Functional bugs came first: broken category links, dead click zones, soft 404s serving a 200 status to search engines, and a toggle switch whose theme styling was overriding its own state. After those, dashboard, admin forms, and nav got a full visual pass using the site's existing design system.
+
+This round also added a light/dark mode toggle with a persisted preference and system-default detection, fixed markdown heading rendering (`h2`/`h3` were all rendering as `h1`), expanded code-block language support from 12 to 45 languages and tools, added dashboard filtering by publish status, category, and premium, and added share buttons (copy link, native share, X) to individual posts.
 
 ## Outcome
 
-The platform is live and supports Markdown and embedded code in posts, which is what makes it usable for technical write-ups like the EC2 OOM postmortem linked from the capstone case study below.
+DailyBlog is still the platform behind this site's build-log posts, now running without the silent write failures and auth gaps that had been live for two years. The diagnosis-first approach from that first bug report, prove the root cause instead of guessing, is what caught the Stripe webhook bug before it cost more subscribers their access.

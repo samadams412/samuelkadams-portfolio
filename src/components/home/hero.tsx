@@ -8,12 +8,12 @@ export function Hero() {
       <div className="flex-1">
         <p className="text-base text-muted-foreground">Hi, I&apos;m Sam.</p>
         <h1 className="mt-3 text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
-          Full-stack developer with a systems and infrastructure bent.
+          Full-stack developer who also runs the infrastructure.
         </h1>
         <p className="mt-5 max-w-prose text-lg text-muted-foreground">
-          I build web apps end to end, and I run the servers underneath them — a
-          home Proxmox lab, build-log posts documenting how things get put
-          together, and projects that actually ship.
+          I build web apps end to end, and I run the servers underneath them
+          too: a home Proxmox lab and build-log posts documenting how it all
+          gets put together.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <Link

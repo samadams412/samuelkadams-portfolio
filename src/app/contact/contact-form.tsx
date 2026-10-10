@@ -116,7 +116,7 @@ export function ContactForm() {
         <SubmitButton />
         {state.status === "success" && (
           <p className="text-sm text-muted-foreground">
-            Message sent — thanks for reaching out.
+            Message sent, thanks for reaching out.
           </p>
         )}
         {state.status === "error" && state.message && (

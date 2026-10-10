@@ -14,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: `${contact.name}'s resume — full-stack software engineering, cloud infrastructure, and IT support experience.`,
+  description: `${contact.name}'s resume: full-stack software engineering, cloud infrastructure, and IT support experience.`,
 };
 
 export default function ResumePage() {

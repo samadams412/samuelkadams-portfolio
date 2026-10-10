@@ -6,7 +6,7 @@ import { timeline } from "@/lib/resume-data";
 export const metadata: Metadata = {
   title: "Timeline",
   description:
-    "Sam Adams's career and education timeline — from first job to Computer Science degree.",
+    "Sam Adams's career and education timeline, from first job to Computer Science degree.",
 };
 
 export default function TimelinePage() {

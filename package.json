@@ -10,6 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -21,9 +23,12 @@
       "prettier --write"
     ]
   },
+  "overrides": {
+    "tinypool": "^2.2.0"
+  },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "next": "16.3.4",
+    "next": "16.4.0",
     "next-mdx-remote": "^6.0.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -32,18 +37,20 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.186.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.4",
+    "eslint-config-next": "16.4.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
     "prettier": "^3.9.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   }
 }

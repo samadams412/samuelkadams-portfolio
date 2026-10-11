@@ -1,27 +1,36 @@
 ---
 title: "Eventify"
 slug: "eventify"
-summary: "A normalized MySQL schema for an event-ticketing platform, with Python tooling to generate realistic test data. No front end."
-stack: ["MySQL", "SQL", "Python", "Faker"]
-role: "Solo course project (Database Management)"
+summary: "A full-stack event ticketing platform with Stripe-backed purchases, concurrency-safe capacity enforcement, and a Dockerized AWS deployment with CI/CD."
+stack: ["Next.js", "TypeScript", "Express", "MySQL", "Docker", "Stripe", "AWS EC2", "GitHub Actions"]
+role: "Solo project, extended from a database systems course project"
 repoUrl: "https://github.com/samadams412/G4C"
-ogImage: "/projects/eventify/er-diagram.png"
-featured: false
+liveUrl: "https://eventify.social"
+ogImage: "/projects/eventify/browse.png"
+featured: true
 screenshots:
-  - src: "/projects/eventify/er-diagram.png"
-    alt: "Entity-relationship diagram of the Eventify database schema"
+  - src: "/projects/eventify/browse.png"
+    alt: "Eventify event browse page with category filtering"
+  - src: "/projects/eventify/event-detail.png"
+    alt: "Eventify event detail page showing live pricing and capacity"
+  - src: "/projects/eventify/checkout.png"
+    alt: "Eventify checkout flow with the Stripe Payment Element"
 ---
 
 ## Problem
 
-A database management course project, scoped around schema design rather than application development. There's no UI here, and this case study doesn't pretend otherwise.
+The project started as a database management course assignment: a normalized MySQL schema for an event-ticketing platform, with triggers, stored procedures, and views enforcing business rules at the database layer. That schema had no front end and nothing deployed. The goal afterward was to turn it into a real, running application: a public site people could browse, an admin surface with real CRUD, and an actual ticket-purchase flow backed by a payment provider, not a mock.
 
 ## Approach
 
-The schema models an event-ticketing platform: users, venues, events, orders, and tickets, with foreign keys, triggers, and stored procedures enforcing business rules at the database layer rather than in application code. To test it against something more realistic than a handful of manually entered rows, a Python tool using Faker generates synthetic datasets sized for query and workflow validation.
+The build ran as 9 phases: API, auth, frontend, payments, AWS deployment, and CI/CD. Each one was tested against the live running stack, not assumed to work from code review alone.
 
-SQL views and stored procedures cover reporting needs like event sales and attendance, queryable directly against the database.
+The backend is Express + TypeScript over the original MySQL 8 schema, with JWT-based auth for login/register, session-aware nav, and route protection on both the API and frontend. An admin role gets full CRUD on events, venues, tickets, and categories, enforcing real business rules: capacity limits, status gating, and blocks on suspended users. The public side is a Next.js 14 (App Router) + TypeScript + Tailwind frontend for browsing and filtering events by category, with detail pages showing live pricing and capacity.
+
+Ticket purchasing is a reservation-based flow with a 15-minute hold: a Stripe PaymentIntent is created on reservation, confirmed via webhook, and presented through a themed Stripe Payment Element (test mode) rather than a redirect to Stripe's hosted page. Overbooking is prevented with row-level locking and transaction-scoped capacity checks inside MySQL, verified under concurrent load rather than just single-request testing.
+
+Deployment is Docker Compose for both local dev and production, running on AWS EC2 behind nginx with Let's Encrypt TLS. GitHub Actions builds and pushes images to GHCR on merge to main, and the EC2 host pulls and redeploys automatically — no manual SSH-and-restart step.
 
 ## Outcome
 
-The project is the schema, the data-generation tooling, and the reporting queries, not a deployed application. The ER diagram above is the fastest way to see the design without reading the SQL directly.
+Eventify is live at [eventify.social](https://eventify.social): public browsing, an authenticated purchase flow, and an admin back office, all running on a deployed, CI/CD'd stack. The database layer that started as the course deliverable still does the heavy lifting on correctness. Capacity is guaranteed by MySQL transactions, not application-level checks, and that logic is now wrapped in a real application people can actually use.

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { TechTag } from "@/components/projects/tech-tag";
 import type { ProjectMeta } from "@/lib/projects";
 
 // Same log-style row treatment as the home page's FeaturedProjects — see
@@ -29,12 +30,7 @@ export function ProjectList({ projects }: { projects: ProjectMeta[] }) {
               </h2>
               <ul className="flex flex-wrap gap-3">
                 {project.stack.map((item) => (
-                  <li
-                    key={item}
-                    className="font-mono text-xs text-muted-foreground"
-                  >
-                    {item}
-                  </li>
+                  <TechTag key={item} label={item} />
                 ))}
               </ul>
             </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { TechTag } from "@/components/projects/tech-tag";
 import type { ProjectMeta } from "@/lib/projects";
 
 // Log-style rows rather than a card grid: everything is visible without a
@@ -32,12 +33,7 @@ export function FeaturedProjects({ projects }: { projects: ProjectMeta[] }) {
                 </h3>
                 <ul className="flex flex-wrap gap-3">
                   {project.stack.map((item) => (
-                    <li
-                      key={item}
-                      className="font-mono text-xs text-muted-foreground"
-                    >
-                      {item}
-                    </li>
+                    <TechTag key={item} label={item} />
                   ))}
                 </ul>
               </div>

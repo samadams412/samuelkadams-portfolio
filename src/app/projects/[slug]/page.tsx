@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/layout/container";
 import { LightboxImage } from "@/components/projects/lightbox-image";
+import { TechTag } from "@/components/projects/tech-tag";
 import { getAllProjectSlugs, getProject } from "@/lib/projects";
 
 export const dynamicParams = false;
@@ -60,9 +61,7 @@ export default async function ProjectPage({
 
         <ul className="mt-4 flex flex-wrap gap-3">
           {meta.stack.map((item) => (
-            <li key={item} className="font-mono text-xs text-muted-foreground">
-              {item}
-            </li>
+            <TechTag key={item} label={item} />
           ))}
         </ul>
 
